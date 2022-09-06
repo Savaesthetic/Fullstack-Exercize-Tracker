@@ -1,19 +1,13 @@
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectAllUsers } from "../redux/slices/user";
 
 const Users = () => {
-    const [users, setUsers] = useState([]);
-    useEffect(() => {
-        fetch('/api/users')
-            .then(res => res.json())
-            .then(users => {
-                setUsers(users);
-            });
-    }, []);
+    const users = useSelector(selectAllUsers);
 
     return (
     <div>
         <ul>
-            {users.map(user => <li>Username: {user.username}, Age: {user.age}</li>)}
+            {users?.map(user => <li key={user._id}>Username: {user.username}, Age: {user.age}</li>)}
         </ul>
     </div>
     )
